@@ -1,21 +1,21 @@
+import { Helmet } from "react-helmet-async";
 import "./menu.css";
+import Cover from "../../Shared/Cover/Cover";
+import menuImage from "../../assets/menu/banner3.jpg";
 const Menu = () => {
   return (
     <div>
+      <Helmet>
+        <title>Bistro Boss | Menu</title>
+      </Helmet>
       {/* cover */}
-      <section className="cover flex justify-center items-center bg-fixed bg-center bg-no-repeat">
-        <div>
-          <div className="text-white max-w-5xl text-center mx-auto p-10 backdrop-brightness-50">
-            <h2>OUR MENU</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
-              officia quo eaque iste veniam ducimus praesentium. Amet, dicta
-              beatae iste mollitia doloribus fugiat minima quasi, quos saepe
-              veritatis eveniet vel?
-            </p>
-          </div>
-        </div>
-      </section>
+      <Cover
+        image={menuImage}
+        title={"OUR MENU"}
+        subtitle={"Would you like to try a dish?"}
+        height={"700px"}
+        mainmenu={true}
+      ></Cover>
     </div>
   );
 };
