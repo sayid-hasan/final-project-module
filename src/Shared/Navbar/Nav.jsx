@@ -56,7 +56,7 @@ const Nav = () => {
           <li className="flex">
             {" "}
             <Link
-              to={``}
+              to={`/order`}
               className={`flex items-center px-4 rounded-none  pt-4 uppercase text-base   font-Inter`}
             >
               Our shop

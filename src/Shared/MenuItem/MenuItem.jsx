@@ -1,7 +1,7 @@
 const MenuItem = ({ item }) => {
   const { name, price, image, recipe } = item;
   return (
-    <li className="flex flex-col py-6 mb-12 sm:flex-row sm:justify-between">
+    <li className="flex flex-col py-6  sm:flex-row sm:justify-between">
       <div className="flex w-full space-x-2 sm:space-x-4">
         <img
           style={{ borderRadius: "0 200px 200px 200px" }}

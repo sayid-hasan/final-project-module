@@ -20,7 +20,7 @@ const Cover = ({ image, title, subtitle, height, mainmenu }) => {
               <h2
                 className={`${
                   mainmenu ? `md:text-7xl` : `md:text-[45px]`
-                } font-Cinzel text-4xl md:text-7xl font-bold leading-[119px] `}
+                } font-Cinzel text-4xl md:text-7xl uppercase font-bold leading-[119px] `}
               >
                 {title}
               </h2>
@@ -35,7 +35,7 @@ const Cover = ({ image, title, subtitle, height, mainmenu }) => {
           </div>
         </div>
       </section>
-      <div style={{ height: "200px" }} />
+      <div />
     </Parallax>
   );
 };
