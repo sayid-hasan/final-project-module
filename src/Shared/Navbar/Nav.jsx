@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import "./Navbar.css";
 import logo from "../../assets/Images/user.png";
@@ -42,12 +42,12 @@ const Nav = () => {
         <>
           <li className="flex">
             {" "}
-            <Link
-              to=""
+            <NavLink
+              to="/menu"
               className={` flex items-center px-4 rounded-none  pt-4 uppercase text-base  font-Inter`}
             >
               Our Menu
-            </Link>
+            </NavLink>
           </li>
         </>
       }

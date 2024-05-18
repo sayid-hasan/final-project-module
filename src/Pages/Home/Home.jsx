@@ -2,6 +2,7 @@ import PopularMenu from "../PopularMenu/PopularMenu";
 import Banner from "./Banner/Banner";
 import FeturedItem from "./FeturedItem/FeturedItem";
 import Orderonline from "./Orderonline/Orderonline";
+import Testimonials from "./Testimonials/Testimonials";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Orderonline></Orderonline>
       <PopularMenu></PopularMenu>
       <FeturedItem></FeturedItem>
+      <Testimonials></Testimonials>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import featured from "../../../assets/home/featured.jpg";
 import "./featuredItem.css";
+import ButtonwithBottomBorder from "../../../components/Buttons/ButtonwithBottomBorder";
 const FeturedItem = () => {
   return (
     <div>
@@ -28,9 +29,9 @@ const FeturedItem = () => {
                 </p>
               </div>
               <div className="mt-6">
-                <button className="btn btn-ghost hover:bg-black hover:border-b-white  h-auto px-8 py-5 rounded-lg border-0 border-b-black border-b-2">
-                  Read More
-                </button>
+                <ButtonwithBottomBorder
+                  btntext={"Read More"}
+                ></ButtonwithBottomBorder>
               </div>
             </div>
           </div>
