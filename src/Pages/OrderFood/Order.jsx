@@ -4,11 +4,22 @@ import ourShop from "../../assets/shop/banner2.jpg";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 import "react-tabs/style/react-tabs.css";
+import useMenu from "../../Hooks/UseMenu";
+
+import OrderTab from "./OrderTab/OrderTab";
+
 const Order = () => {
   const [tabIndex, setTabIndex] = useState(0);
+  const [menu] = useMenu();
+  const dessert = menu.filter((item) => item.category === "dessert");
+  const soup = menu.filter((item) => item.category === "soup");
+  const salad = menu.filter((item) => item.category === "salad");
+  const pizza = menu.filter((item) => item.category === "pizza");
+  const drinks = menu.filter((item) => item.category === "drinks");
+
   return (
     <div>
-      <div>
+      <div className="">
         <Cover
           image={ourShop}
           title={`OUR SHOP`}
@@ -17,7 +28,7 @@ const Order = () => {
           height={"700px"}
         ></Cover>
       </div>
-      <div className="mt-28">
+      <div className="my-28">
         {" "}
         <Tabs
           defaultIndex={tabIndex}
@@ -27,30 +38,46 @@ const Order = () => {
         >
           <TabList
             style={{
-              border: "0",
+              textAlign: "center",
+              marginBottom: "48px",
+              border: 0,
               fontSize: "24px",
               font: "Inter",
               fontWeight: "600",
               textTransform: "uppercase",
             }}
           >
-            <Tab
-              style={{
-                border: 0,
-              }}
-            >
-              Title 1
+            <Tab id="controlled-tabs" selectedClassName="text-[#BB8506]   ">
+              Salad
             </Tab>
-            <Tab
-              style={{
-                border: 0,
-              }}
-            >
-              Title 2
+            <Tab id="controlled-tabs" selectedClassName="text-[#BB8506]  ">
+              pizza
+            </Tab>
+            <Tab id="controlled-tabs" selectedClassName="text-[#BB8506]  ">
+              soups
+            </Tab>
+            <Tab id="controlled-tabs" selectedClassName="text-[#BB8506]  ">
+              desserts
+            </Tab>
+            <Tab id="controlled-tabs" selectedClassName="text-[#BB8506]  ">
+              drinks
             </Tab>
           </TabList>
-          <TabPanel></TabPanel>
-          <TabPanel></TabPanel>
+          <TabPanel>
+            <OrderTab items={salad}></OrderTab>
+          </TabPanel>
+          <TabPanel>
+            <OrderTab items={pizza}></OrderTab>
+          </TabPanel>
+          <TabPanel>
+            <OrderTab items={soup}></OrderTab>
+          </TabPanel>
+          <TabPanel>
+            <OrderTab items={dessert}></OrderTab>
+          </TabPanel>
+          <TabPanel>
+            <OrderTab items={drinks}></OrderTab>
+          </TabPanel>
         </Tabs>
       </div>
     </div>
