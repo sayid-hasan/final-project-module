@@ -9,15 +9,21 @@ import soupImg from "../../assets/menu/soup-bg.jpg";
 import useMenu from "../../Hooks/UseMenu";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import Menucategory from "./Menucategory";
-import ButtonwithBottomBorder from "../../components/Buttons/ButtonwithBottomBorder";
+
 const Menu = () => {
-  const [menu] = useMenu();
+  const [menu, loading] = useMenu();
 
   const dessert = menu.filter((item) => item.category === "dessert");
   const soup = menu.filter((item) => item.category === "soup");
   const salad = menu.filter((item) => item.category === "salad");
   const pizza = menu.filter((item) => item.category === "pizza");
   const offered = menu.filter((item) => item.category === "offered");
+  if (loading)
+    return (
+      <div className="flex justify-center pt-[100px]">
+        <span className="loading loading-dots loading-lg text-[#BB8506]"></span>
+      </div>
+    );
   return (
     <div>
       <Helmet>
@@ -37,12 +43,7 @@ const Menu = () => {
           heading={`TODAY'S OFFER`}
           subheading={`---Don't miss---`}
         ></SectionTitle>
-        <Menucategory items={offered}></Menucategory>
-        <div className="text-center">
-          <ButtonwithBottomBorder
-            btntext={"ORDER YOUR FAVOURITE FOOD"}
-          ></ButtonwithBottomBorder>
-        </div>
+        <Menucategory items={offered} title={"drinks"}></Menucategory>
       </div>
       {/* DESSERT */}
       <div className="my-7">
@@ -56,12 +57,7 @@ const Menu = () => {
           mainmenu={false}
         ></Cover>
         <div className="my-8">
-          <Menucategory items={dessert}></Menucategory>
-        </div>
-        <div className="text-center ">
-          <ButtonwithBottomBorder
-            btntext={"ORDER YOUR FAVOURITE FOOD"}
-          ></ButtonwithBottomBorder>
+          <Menucategory items={dessert} title={"dessert"}></Menucategory>
         </div>
       </div>
       {/* Pizza */}
@@ -76,12 +72,7 @@ const Menu = () => {
           mainmenu={false}
         ></Cover>
         <div className="my-8">
-          <Menucategory items={pizza}></Menucategory>
-        </div>
-        <div className="text-center ">
-          <ButtonwithBottomBorder
-            btntext={"ORDER YOUR FAVOURITE FOOD"}
-          ></ButtonwithBottomBorder>
+          <Menucategory items={pizza} title={"pizza"}></Menucategory>
         </div>
       </div>
       {/* salad */}
@@ -96,12 +87,7 @@ const Menu = () => {
           mainmenu={false}
         ></Cover>
         <div className="my-8">
-          <Menucategory items={salad}></Menucategory>
-        </div>
-        <div className="text-center ">
-          <ButtonwithBottomBorder
-            btntext={"ORDER YOUR FAVOURITE FOOD"}
-          ></ButtonwithBottomBorder>
+          <Menucategory items={salad} title={"salad"}></Menucategory>
         </div>
       </div>
       {/* soup */}
@@ -116,12 +102,7 @@ const Menu = () => {
           mainmenu={false}
         ></Cover>
         <div className="my-8">
-          <Menucategory items={soup}></Menucategory>
-        </div>
-        <div className="text-center ">
-          <ButtonwithBottomBorder
-            btntext={"ORDER YOUR FAVOURITE FOOD"}
-          ></ButtonwithBottomBorder>
+          <Menucategory items={soup} title={"soup"}></Menucategory>
         </div>
       </div>
     </div>

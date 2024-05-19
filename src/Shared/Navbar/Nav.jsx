@@ -1,11 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 
 import "./Navbar.css";
-import logo from "../../assets/Images/user.png";
+// import logo from "../../assets/Images/user.png";
 
 const Nav = () => {
-  const loading = false;
-  const user = true;
+  // const loading = false;
+  // const user = true;
   const navlinks = (
     <>
       <li className="flex">
@@ -56,7 +56,7 @@ const Nav = () => {
           <li className="flex">
             {" "}
             <Link
-              to={`/order`}
+              to={`/order/salad`}
               className={`flex items-center px-4 rounded-none  pt-4 uppercase text-base   font-Inter`}
             >
               Our shop
@@ -71,8 +71,13 @@ const Nav = () => {
     <>
       {/* buttons and user profile */}
       <div className="items-center flex-shrink-0 text-black lg:flex mt-4">
-        {/* <button className="self-center px-8 py-3 rounded">Sign in</button> */}
-        {loading ? (
+        <Link
+          to="/login"
+          className="self-center px-8 py-3 font-semibold rounded bg-[#F26767] text-white"
+        >
+          Sign in
+        </Link>
+        {/* {loading ? (
           <>
             <span className="loading loading-spinner text-success"></span>
           </>
@@ -112,9 +117,7 @@ const Nav = () => {
                   Sign in
                 </Link>
               </>
-            )}
-          </>
-        )}
+            )} */}
       </div>
     </>
   );

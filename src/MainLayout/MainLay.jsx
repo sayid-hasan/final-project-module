@@ -1,16 +1,20 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Nav from "../Shared/Navbar/Nav";
 import Footer from "../Shared/Footer/Footer";
 
 const MainLay = () => {
+  const location = useLocation();
+  const isLogin = location.pathname.includes("login");
   return (
     <div>
       <div className="container mx-auto">
-        <Nav></Nav>
+        {isLogin || <Nav></Nav>}
 
-        <Outlet></Outlet>
+        <div className="min-h-[300px]">
+          <Outlet></Outlet>
+        </div>
       </div>
-      <Footer></Footer>
+      {isLogin || <Footer></Footer>}
     </div>
   );
 };
