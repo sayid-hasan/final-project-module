@@ -31,13 +31,13 @@ const Login = () => {
   return (
     <div>
       <div className="hero min-h-screen background">
-        <div className="background box-shadow min-h-[500px] flex justify-center items-center max-w-6xl md:px-10">
+        <div className="background box-shadow  flex justify-center items-center max-w-6xl md:px-10">
           <div className="hero-content flex-col lg:flex-row">
             <div className=" md:w-1/2 w-full ">
               <img src={img1} alt="" />
             </div>
             <div className="card shrink-0 md:w-1/2 w-full max-w-sm  bg-none">
-              <h2 className="font-Inter font-bold text-center text-[40px] text-[#151515]">
+              <h2 className="font-Inter font-bold text-center text-[32px] text-[#151515]">
                 Login
               </h2>
               <form onSubmit={handleLogin} className="card-body font-Inter">
@@ -76,26 +76,27 @@ const Login = () => {
                 </div>
                 {/* captcha */}
                 <div className="form-control  w-full">
-                  <label className="label ">
+                  <p className="label ">
                     <span className="text-[#444444]  label-text text-base font-medium ">
                       <LoadCanvasTemplate />
                     </span>
-                  </label>
+                  </p>
                   <input
                     type="text"
+                    onBlur={handleCaptcha}
                     placeholder="Enter the captcha"
                     name="captcha"
                     ref={captchaRef}
                     className="input input-bordered placeholder:text-[#A1A1A1]"
                   />
-                  <button
+                  {/* <button
                     onClick={handleCaptcha}
                     className={`${
                       disabled ? "" : "hidden"
                     } btn btn-outline btn-xs w-[100px] mt-5`}
                   >
                     validate
-                  </button>
+                  </button> */}
                 </div>
                 <div className="form-control mt-6 w-full">
                   <input
