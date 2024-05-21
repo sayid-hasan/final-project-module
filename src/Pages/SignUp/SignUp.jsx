@@ -22,11 +22,11 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    const { email, password, name } = data;
+    const { email, password, name, photourl } = data;
     createUser(email, password)
       .then((res) => {
         console.log(res.user);
-        updateUser(name, res.user.photoURL).then(() => {
+        updateUser(name, photourl).then(() => {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -76,6 +76,26 @@ const SignUp = () => {
                   {errors.name?.type === "required" && (
                     <span className="text-red-600 font-medium text-sm">
                       name is required
+                    </span>
+                  )}
+                </div>
+                {/* photoUrl */}
+                <div className="form-control w-full">
+                  <label className="label">
+                    <span className="text-[#444444] label-text text-lg font-medium">
+                      Photo URL
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    {...register("photourl", { required: true })}
+                    placeholder="your Name"
+                    className="input input-bordered placeholder:text-[#A1A1A1]"
+                  />
+                  {errors.photourl?.type === "required" && (
+                    <span className="text-red-600 font-medium text-sm">
+                      Photo URL is required
                     </span>
                   )}
                 </div>
