@@ -42,8 +42,8 @@ const Testimonials = () => {
           modules={[Navigation]}
           className="mySwiper"
         >
-          {reviews.map((review) => (
-            <SwiperSlide key={review._id}>
+          {reviews.map((review, idx) => (
+            <SwiperSlide key={idx}>
               <div className="flex flex-col gap-4 items-center">
                 <div className="mb-12">
                   {" "}

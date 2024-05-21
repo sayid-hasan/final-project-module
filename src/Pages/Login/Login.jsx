@@ -9,12 +9,16 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { CiFacebook } from "react-icons/ci";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const captchaRef = useRef();
-
+  const location = useLocation();
+  const navigate = useNavigate();
   const { logIn } = useContext(AuthContext);
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -28,6 +32,17 @@ const Login = () => {
     logIn(email, password)
       .then((res) => {
         console.log(res.user);
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: res.user?.displayName
+            ? ` 'Welcome Back' ${res.user?.displayName}`
+            : "logged in successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(from);
       })
       .catch((err) => console.log(err));
   };
@@ -42,6 +57,9 @@ const Login = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Bistro Boss | Log In</title>
+      </Helmet>
       <div className="hero min-h-screen background">
         <div className="background box-shadow  flex justify-center items-center max-w-6xl md:px-10">
           <div className="hero-content flex-col lg:flex-row">
@@ -91,11 +109,11 @@ const Login = () => {
                 </div>
                 {/* captcha */}
                 <div className="form-control  w-full">
-                  <p className="label ">
+                  <div className="label ">
                     <span className="text-[#444444]  label-text text-base font-medium ">
                       <LoadCanvasTemplate />
                     </span>
-                  </p>
+                  </div>
                   <input
                     type="text"
                     onBlur={handleCaptcha}

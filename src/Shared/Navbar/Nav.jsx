@@ -1,11 +1,27 @@
 import { Link, NavLink } from "react-router-dom";
 
 import "./Navbar.css";
-// import logo from "../../assets/Images/user.png";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import logo from "../../assets/Images/user.png";
+import Swal from "sweetalert2";
 
 const Nav = () => {
-  // const loading = false;
-  // const user = true;
+  const { user, loading, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "logged out successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
   const navlinks = (
     <>
       <li className="flex">
@@ -70,14 +86,15 @@ const Nav = () => {
   const buttonProfile = (
     <>
       {/* buttons and user profile */}
-      <div className="items-center flex-shrink-0 text-black lg:flex mt-4">
-        <Link
+
+      {/* <Link
           to="/login"
-          className="self-center px-8 py-3 font-semibold rounded bg-[#F26767] text-white"
+          className="self-center px-8 py-3 font-semibold rounded bg-[#D1A054] text-white"
         >
           Sign in
-        </Link>
-        {/* {loading ? (
+        </Link> */}
+      <div className="items-center flex-shrink-0 text-black lg:flex mt-4">
+        {loading ? (
           <>
             <span className="loading loading-spinner text-success"></span>
           </>
@@ -103,7 +120,7 @@ const Nav = () => {
                       </Link>
                     </li>
                     <li>
-                      <button>Log out</button>
+                      <button onClick={handleLogOut}>Log out</button>
                     </li>
                   </ul>
                 </div>
@@ -112,12 +129,14 @@ const Nav = () => {
               <>
                 <Link
                   to="/login"
-                  className="self-center px-8 py-3 font-semibold rounded bg-[#F26767] text-white"
+                  className="self-center px-8 py-3 font-semibold rounded bg-[#D1A054] text-white"
                 >
                   Sign in
                 </Link>
               </>
-            )} */}
+            )}
+          </>
+        )}
       </div>
     </>
   );

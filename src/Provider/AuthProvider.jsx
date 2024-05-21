@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/firebase.config";
@@ -36,13 +37,21 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, pass);
   };
 
+  // update user
+  const updateUser = (name, photoURL) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photoURL,
+    });
+  };
+
   // logout user
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
   };
 
-  const authInfo = { user, loading, createUser, logIn, logOut };
+  const authInfo = { user, loading, createUser, logIn, logOut, updateUser };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
