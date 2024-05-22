@@ -5,9 +5,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import logo from "../../assets/Images/user.png";
 import Swal from "sweetalert2";
+import { TiShoppingCart } from "react-icons/ti";
+import useCart from "../../Hooks/useCart";
 
 const Nav = () => {
   const { user, loading, logOut } = useContext(AuthContext);
+  const [carts] = useCart();
   const handleLogOut = () => {
     logOut()
       .then(() => {
@@ -67,6 +70,7 @@ const Nav = () => {
           </li>
         </>
       }
+      {}
       {
         <>
           <li className="flex">
@@ -76,6 +80,25 @@ const Nav = () => {
               className={`flex items-center px-4 rounded-none  pt-4 uppercase text-base   font-Inter`}
             >
               Our shop
+            </Link>
+          </li>
+        </>
+      }
+      {
+        <>
+          <li className="flex">
+            {" "}
+            <Link
+              to={`/order/salad`}
+              className={`flex items-center px-4 rounded-none  pt-4 uppercase text-base   font-Inter relative mr-4`}
+            >
+              <div className="text-3xl">
+                {" "}
+                <TiShoppingCart />
+              </div>
+              <div className="badge bg-[#D1A054] absolute top-1/2 -translate-y-1/2 right-2 md:top-px md:-right-4">
+                +{carts.length}
+              </div>
             </Link>
           </li>
         </>
@@ -171,16 +194,16 @@ const Nav = () => {
           </div>
           <Link to="/" className="   text-3xl  font-Cinzel   h-auto min-h-0  ">
             <h2 className="">
-              <p className="text-white leading-[43px] font-black text-3xl">
+              <p className="text-white leading-[43px] font-black text-xl md:text-3xl">
                 BISTRO BOSS
               </p>
-              <p className="text-white leading-[32px] font-bold tracking-[0.5em] text-2xl ">
+              <p className="text-white leading-[32px] font-bold md:tracking-[0.5em] md:text-2xl text-lg tracking-[0.25em] ">
                 Restaurant
               </p>
             </h2>
           </Link>
         </div>
-        <div className="navbar-end hidden lg:flex ">
+        <div className="navbar-end w-3/4 hidden lg:flex ">
           <ul className="menu menu-horizontal bg-transparent  px-1 ">
             {navlinks}
           </ul>
