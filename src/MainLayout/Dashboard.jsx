@@ -7,25 +7,16 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { CiCalendar, CiMenuBurger } from "react-icons/ci";
-import {
-  FaAd,
-  FaHome,
-  FaInbox,
-  FaMailBulk,
-  FaShoppingCart,
-} from "react-icons/fa";
+import { FaAd, FaHome, FaShoppingCart } from "react-icons/fa";
 import {
   MdBookOnline,
   MdContactMail,
   MdOutlinePayment,
-  MdShop,
   MdShoppingBag,
 } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
@@ -287,7 +278,7 @@ const Dashboard = () => {
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", bgcolor: "#F6F6F6", paddingBottom: "20px" }}>
       <CssBaseline />
 
       <Toolbar>
@@ -296,7 +287,7 @@ const Dashboard = () => {
           aria-label="open drawer"
           edge="start"
           onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { sm: "none" } }}
+          sx={{ mr: 2, position: "absolute", top: "10px", left: "10px" }}
         >
           <CiMenuBurger />
         </IconButton>
@@ -345,7 +336,7 @@ const Dashboard = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
+
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
