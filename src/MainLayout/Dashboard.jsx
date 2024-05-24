@@ -20,10 +20,12 @@ import {
   MdShoppingBag,
 } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
+import useCart from "../Hooks/useCart";
 const drawerWidth = 270;
 const Dashboard = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [carts] = useCart();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -144,7 +146,7 @@ const Dashboard = () => {
                 <FaShoppingCart></FaShoppingCart>
               </span>
               <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                my cart
+                my cart ({carts.length})
               </span>
             </ListItemButton>
           </NavLink>

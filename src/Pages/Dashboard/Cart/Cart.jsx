@@ -1,12 +1,44 @@
 import { MdDelete } from "react-icons/md";
 import useCart from "../../../Hooks/useCart";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const Cart = () => {
-  const [carts] = useCart();
+  const [carts, refetch] = useCart();
+  const axiosSecure = useAxiosSecure();
+
   const totalPrice = carts.reduce((accumulator, item) => {
-    return accumulator + parseInt(item.price);
+    return accumulator + parseFloat(item.price);
   }, 0);
+  // dlete operation
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/carts/${id}`)
+          .then((res) => {
+            if (res.data.deletedCount > 0) {
+              refetch();
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  };
   return (
     <div className="bg-[#F6F6F6]">
       <div className=" w-full">
@@ -34,9 +66,9 @@ const Cart = () => {
           <div className="overflow-x-auto rounded-t-lg mt-3">
             <table className="table space-y-3 font-Inter rounded-t-lg">
               {/* head */}
-              <thead className="bg-[#D1A054]  ">
-                <tr className="text-white rounded-t-2xl py-3 md:py-6 ">
-                  <th>#</th>
+              <thead className="bg-[#D1A054] h-auto  py-3 md:py-6">
+                <tr className="text-white h-auto rounded-t-2xl py-3 md:py-6 ">
+                  <th className="py-4 md:py-6">#</th>
                   <th className="text-base uppercase font-semibold leading-[19px]">
                     ITEM IMAGE
                   </th>
@@ -58,21 +90,25 @@ const Cart = () => {
                     <td>
                       <div className="flex items-center gap-3">
                         <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
+                          <div className="mask mask-squircle h-[75px] aspect-square">
                             <img
                               src={item.image}
+                              className="h-[75px] aspect-square"
                               alt="Avatar Tailwind CSS Component"
                             />
                           </div>
                         </div>
                       </div>
                     </td>
-                    <td className="text-[#737373] text-base ">
+                    <td className="text-[#737373] text-base py-3 md:py-6 ">
                       <span>{item.name}</span>
                     </td>
                     <td className="text-[#737373] text-base">${item.price}</td>
                     <th>
-                      <button className="btn btn-ghost text-3xl text-red-600">
+                      <button
+                        onClick={() => handleDelete(item._id)}
+                        className="btn btn-ghost text-3xl text-red-600"
+                      >
                         <MdDelete></MdDelete>
                       </button>
                     </th>
