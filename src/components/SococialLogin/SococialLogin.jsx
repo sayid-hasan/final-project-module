@@ -2,18 +2,25 @@ import { CiFacebook } from "react-icons/ci";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const SococialLogin = () => {
   const { googleSignIn } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const from = location.state?.from?.pathname || "/";
   const handleGoogleSignIn = () => {
     googleSignIn().then((res) => {
+      const userInfo = {
+        email: res.user?.email,
+        name: res.user?.displayName,
+      };
       console.log(res.user);
-      if (res.user?.photoURL) {
+      axiosPublic.post("/users", userInfo).then((res) => {
+        console.log(res.data);
         navigate(from);
-      }
+      });
     });
   };
   return (

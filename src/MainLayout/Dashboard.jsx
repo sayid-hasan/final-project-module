@@ -12,7 +12,15 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { CiCalendar, CiMenuBurger } from "react-icons/ci";
-import { FaAd, FaHome, FaShoppingCart } from "react-icons/fa";
+import {
+  FaAd,
+  FaBook,
+  FaHome,
+  FaList,
+  FaShoppingCart,
+  FaUsers,
+  FaUtensils,
+} from "react-icons/fa";
 import {
   MdBookOnline,
   MdContactMail,
@@ -26,6 +34,9 @@ const Dashboard = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [carts] = useCart();
+
+  // TDO : get admin value from database
+  const isAdmin = true;
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -70,127 +81,279 @@ const Dashboard = () => {
       </Toolbar>
       <Divider />
       <List>
-        {/* userHome */}
-        <ListItem>
-          <NavLink
-            style={({ isActive }) => {
-              return isActive ? { color: "white" } : {};
-            }}
-            to="/"
-          >
-            <ListItemButton
-              sx={{ display: "flex", gap: "15px", textDecoration: "uppercase" }}
-            >
-              <span className="text-2xl">
-                <FaHome></FaHome>
-              </span>
-              <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                User Home
-              </span>
-            </ListItemButton>
-          </NavLink>
-        </ListItem>
-        {/* reservation */}
-        <ListItem>
-          <NavLink
-            style={({ isActive }) => {
-              return isActive ? { color: "white" } : {};
-            }}
-            to="/"
-          >
-            <ListItemButton
-              sx={{ display: "flex", gap: "15px", textDecoration: "uppercase" }}
-            >
-              <span className="text-2xl">
-                <CiCalendar></CiCalendar>
-              </span>
-              <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                reservation
-              </span>
-            </ListItemButton>
-          </NavLink>
-        </ListItem>
-        {/* payment history */}
-        <ListItem>
-          <NavLink
-            style={({ isActive }) => {
-              return isActive ? { color: "white" } : {};
-            }}
-            to="/"
-          >
-            <ListItemButton
-              sx={{ display: "flex", gap: "15px", textDecoration: "uppercase" }}
-            >
-              <span className="text-2xl">
-                <MdOutlinePayment></MdOutlinePayment>
-              </span>
-              <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                Payment
-              </span>
-            </ListItemButton>
-          </NavLink>
-        </ListItem>
-
-        {/* my cart */}
-        <ListItem>
-          <NavLink
-            style={({ isActive }) => {
-              return isActive ? { color: "white" } : {};
-            }}
-            to="/dashboard/cart"
-          >
-            <ListItemButton
-              sx={{ display: "flex", gap: "15px", textDecoration: "uppercase" }}
-            >
-              <span className="text-2xl">
-                <FaShoppingCart></FaShoppingCart>
-              </span>
-              <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                my cart ({carts.length})
-              </span>
-            </ListItemButton>
-          </NavLink>
-        </ListItem>
-        {/* add review */}
-        <ListItem>
-          <NavLink
-            style={({ isActive }) => {
-              return isActive ? { color: "white" } : {};
-            }}
-            to="/"
-          >
-            <ListItemButton
-              sx={{ display: "flex", gap: "15px", textDecoration: "uppercase" }}
-            >
-              <span className="text-2xl">
-                <FaAd></FaAd>
-              </span>
-              <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                add review
-              </span>
-            </ListItemButton>
-          </NavLink>
-        </ListItem>
-        {/* my booking */}
-        <ListItem>
-          <NavLink
-            style={({ isActive }) => {
-              return isActive ? { color: "white" } : {};
-            }}
-            to="/"
-          >
-            <ListItemButton
-              sx={{ display: "flex", gap: "15px", textDecoration: "uppercase" }}
-            >
-              <span className="text-2xl">
-                <MdBookOnline></MdBookOnline>
-              </span>
-              <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                my booking
-              </span>
-            </ListItemButton>
-          </NavLink>
-        </ListItem>
+        {isAdmin ? (
+          <>
+            {" "}
+            {/* adminhome */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/dashboard/adminhome"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <FaHome></FaHome>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    Admin Home
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+            {/* additems */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/dashboard/additems"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <FaUtensils></FaUtensils>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    add items
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+            {/* manage items */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/dashboard/manageitems"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <FaList></FaList>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    manage items
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+            {/*managebookings */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/dashboard/managebookings"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <FaBook></FaBook>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    manage bookings
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+            {/* allusers*/}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/dashboard/users"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <FaUsers></FaUsers>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    all users
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+          </>
+        ) : (
+          <>
+            {" "}
+            {/* userHome */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <FaHome></FaHome>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    User Home
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+            {/* reservation */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <CiCalendar></CiCalendar>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    reservation
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+            {/* payment history */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <MdOutlinePayment></MdOutlinePayment>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    Payment
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+            {/* my cart */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/dashboard/cart"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <FaShoppingCart></FaShoppingCart>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    my cart ({carts.length})
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+            {/* add review */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <FaAd></FaAd>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    add review
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+            {/* my booking */}
+            <ListItem>
+              <NavLink
+                style={({ isActive }) => {
+                  return isActive ? { color: "white" } : {};
+                }}
+                to="/"
+              >
+                <ListItemButton
+                  sx={{
+                    display: "flex",
+                    gap: "15px",
+                    textDecoration: "uppercase",
+                  }}
+                >
+                  <span className="text-2xl">
+                    <MdBookOnline></MdBookOnline>
+                  </span>
+                  <span className="font-Cinzel  text-base font-bold leading-[22px]">
+                    my booking
+                  </span>
+                </ListItemButton>
+              </NavLink>
+            </ListItem>
+          </>
+        )}
       </List>
       <Divider />
       <List>
