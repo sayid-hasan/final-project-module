@@ -7,11 +7,11 @@ import {
 import img1 from "../../assets/others/authentication2.png";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { CiFacebook } from "react-icons/ci";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SococialLogin from "../../components/SococialLogin/SococialLogin";
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const captchaRef = useRef();
@@ -147,26 +147,8 @@ const Login = () => {
                 <p className="px-3 text-lg -mt-3 font-medium text-[#444444]">
                   or Login with
                 </p>
-                <div className="flex justify-center space-x-4 mt-2">
-                  <button
-                    aria-label="Log in with Google"
-                    className="p-3 text-2xl h-12 aspect-square rounded-[50%] border border-black"
-                  >
-                    <CiFacebook />
-                  </button>
-                  <button
-                    aria-label="Log in with Twitter"
-                    className="p-3 text-2xl h-12 aspect-square rounded-[50%] border border-black"
-                  >
-                    <FaGoogle />
-                  </button>
-                  <button
-                    aria-label="Log in with GitHub"
-                    className="p-3 text-2xl h-12 aspect-square rounded-[50%] border border-black"
-                  >
-                    <FaGithub />
-                  </button>
-                </div>
+                {/* social login  */}
+                <SococialLogin></SococialLogin>
               </div>
             </div>
           </div>

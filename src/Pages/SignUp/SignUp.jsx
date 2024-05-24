@@ -1,5 +1,3 @@
-import { CiFacebook } from "react-icons/ci";
-import { FaGithub, FaGoogle } from "react-icons/fa";
 import img1 from "../../assets/others/authentication2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -8,11 +6,14 @@ import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SococialLogin from "../../components/SococialLogin/SococialLogin";
 
 const SignUp = () => {
   const { createUser, updateUser } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -27,15 +28,25 @@ const SignUp = () => {
       .then((res) => {
         console.log(res.user);
         updateUser(name, photourl).then(() => {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "sign up successfully",
-            showConfirmButton: false,
-            timer: 1500,
+          // create user entry in database
+          const userInfo = {
+            name,
+            email,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "sign up successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+
+              navigate("/");
+            }
           });
-          reset();
-          navigate("/");
         });
       })
       .catch((err) => console.log(err));
@@ -192,26 +203,7 @@ const SignUp = () => {
                 <p className="px-3 text-lg -mt-3 font-medium text-[#444444]">
                   or Login with
                 </p>
-                <div className="flex justify-center space-x-4 mt-2">
-                  <button
-                    aria-label="Log in with Google"
-                    className="p-3 text-2xl h-12 aspect-square rounded-[50%] border border-black"
-                  >
-                    <CiFacebook />
-                  </button>
-                  <button
-                    aria-label="Log in with Twitter"
-                    className="p-3 text-2xl h-12 aspect-square rounded-[50%] border border-black"
-                  >
-                    <FaGoogle />
-                  </button>
-                  <button
-                    aria-label="Log in with GitHub"
-                    className="p-3 text-2xl h-12 aspect-square rounded-[50%] border border-black"
-                  >
-                    <FaGithub />
-                  </button>
-                </div>
+                <SococialLogin></SococialLogin>
               </div>
             </div>
           </div>
