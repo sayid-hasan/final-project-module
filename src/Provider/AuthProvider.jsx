@@ -9,24 +9,38 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosPublic = useAxiosPublic();
 
   // ONAUTH STATE CHANGE
   useEffect(() => {
     const unsubscrube = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log("current User ", currentUser);
+      // console.log("current User ", currentUser);
+      if (currentUser) {
+        const userInfo = { email: currentUser.email };
+        // sent useremail and get token in response and save it in 1 cookies 2. or localstorage or state/memory
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+          }
+        });
+      } else {
+        //erase the token from locastorage or cookie or caching or memory
+        localStorage.removeItem("access-token");
+      }
       setLoading(false);
     });
     return () => {
       return unsubscrube();
     };
-  }, []);
+  }, [axiosPublic]);
 
   // create User
 
