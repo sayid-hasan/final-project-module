@@ -18,30 +18,6 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const axiosPublic = useAxiosPublic();
 
-  // ONAUTH STATE CHANGE
-  useEffect(() => {
-    const unsubscrube = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      // console.log("current User ", currentUser);
-      if (currentUser) {
-        const userInfo = { email: currentUser.email };
-        // sent useremail and get token in response and save it in 1 cookies 2. or localstorage or state/memory
-        axiosPublic.post("/jwt", userInfo).then((res) => {
-          if (res.data.token) {
-            localStorage.setItem("access-token", res.data.token);
-          }
-        });
-      } else {
-        //erase the token from locastorage or cookie or caching or memory
-        localStorage.removeItem("access-token");
-      }
-      setLoading(false);
-    });
-    return () => {
-      return unsubscrube();
-    };
-  }, [axiosPublic]);
-
   // create User
 
   const createUser = (email, pass) => {
@@ -73,6 +49,32 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signOut(auth);
   };
+
+  // ONAUTH STATE CHANGE
+  useEffect(() => {
+    const unsubscrube = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      // console.log("current User ", currentUser);
+      if (currentUser) {
+        console.log(currentUser);
+        const userInfo = { email: currentUser.email };
+        // sent useremail and get token in response and save it in 1 cookies 2. or localstorage or state/memory
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          console.log("token", res.data.token);
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+          }
+        });
+      } else {
+        //erase the token from locastorage or cookie or caching or memory
+        localStorage.removeItem("access-token");
+      }
+      setLoading(false);
+    });
+    return () => {
+      return unsubscrube();
+    };
+  }, [axiosPublic]);
 
   const authInfo = {
     user,

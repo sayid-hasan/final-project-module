@@ -133,7 +133,7 @@ const Login = () => {
                 </div>
                 <div className="form-control mt-6 w-full">
                   <input
-                    disabled={disabled}
+                    // disabled={disabled} todo : enabled it before publish
                     className="btn btn-primary border-none text-white bg-[#D1A054B3] text-xl font-bold"
                     type="submit"
                     value={"Login"}

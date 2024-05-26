@@ -1,6 +1,5 @@
 import {
   Box,
-  CssBaseline,
   Divider,
   Drawer,
   IconButton,
@@ -29,6 +28,7 @@ import {
 } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 const drawerWidth = 270;
 const Dashboard = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -36,7 +36,9 @@ const Dashboard = () => {
   const [carts] = useCart();
 
   // TDO : get admin value from database
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
+  // refetch();
+  console.log(isAdmin);
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -443,16 +445,16 @@ const Dashboard = () => {
   );
 
   return (
-    <Box sx={{ display: "flex", bgcolor: "#F6F6F6", paddingBottom: "20px" }}>
-      <CssBaseline />
-
-      <Toolbar>
+    <Box sx={{ display: "flex", bgcolor: "#F6F6F6", padding: "20px" }}>
+      <Toolbar
+        sx={{ position: "absolute", top: "10px", left: "10px", zIndex: "1000" }}
+      >
         <IconButton
           color="inherit"
           aria-label="open drawer"
           edge="start"
           onClick={handleDrawerToggle}
-          sx={{ mr: 2, position: "absolute", top: "10px", left: "10px" }}
+          sx={{}}
         >
           <CiMenuBurger />
         </IconButton>
