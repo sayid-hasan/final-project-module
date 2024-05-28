@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
         const userInfo = { email: currentUser.email };
         // sent useremail and get token in response and save it in 1 cookies 2. or localstorage or state/memory
         axiosPublic.post("/jwt", userInfo).then((res) => {
-          console.log("token", res.data.token);
+          // console.log("token", res.data.token);
           if (res.data.token) {
             localStorage.setItem("access-token", res.data.token);
           }

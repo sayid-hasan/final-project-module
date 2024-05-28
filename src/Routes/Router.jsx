@@ -13,6 +13,8 @@ import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../Pages/Dashboard/All Users/AllUsers";
 import AdminRoute from "./AdminRoute";
 import AddItems from "../Pages/Dashboard/AddItems/AddItems";
+import ManageItems from "../Pages/Dashboard/ManageItems/ManageItems";
+import UpdateItem from "../Pages/Dashboard/UpdateItem/UpdateItem";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +55,7 @@ const router = createBrowserRouter([
         path: "cart",
         element: <Cart></Cart>,
       },
-      // admin path
+      // admin onl;y routes
       {
         path: "users",
         element: (
@@ -62,7 +64,7 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
-      // admin path
+
       {
         path: "additems",
         element: (
@@ -70,6 +72,25 @@ const router = createBrowserRouter([
             <AddItems></AddItems>
           </AdminRoute>
         ),
+      },
+      {
+        path: "manageitems",
+        element: (
+          <AdminRoute>
+            <ManageItems></ManageItems>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "updateitem/:id",
+        element: (
+          <AdminRoute>
+            <UpdateItem></UpdateItem>
+          </AdminRoute>
+        ),
+        loader: ({ params }) => {
+          return fetch(`http://localhost:5000/menu/${params.id}`);
+        },
       },
     ],
   },
