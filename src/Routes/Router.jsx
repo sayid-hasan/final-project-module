@@ -15,6 +15,7 @@ import AdminRoute from "./AdminRoute";
 import AddItems from "../Pages/Dashboard/AddItems/AddItems";
 import ManageItems from "../Pages/Dashboard/ManageItems/ManageItems";
 import UpdateItem from "../Pages/Dashboard/UpdateItem/UpdateItem";
+import Payment from "../Pages/Dashboard/UpdateItem/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -51,9 +52,14 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      // user fonly routes
       {
         path: "cart",
         element: <Cart></Cart>,
+      },
+      {
+        path: "payment",
+        element: <Payment></Payment>,
       },
       // admin onl;y routes
       {

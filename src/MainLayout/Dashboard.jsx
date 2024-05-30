@@ -277,7 +277,7 @@ const Dashboard = () => {
                     <MdOutlinePayment></MdOutlinePayment>
                   </span>
                   <span className="font-Cinzel  text-base font-bold leading-[22px]">
-                    Payment
+                    Payment History
                   </span>
                 </ListItemButton>
               </NavLink>
