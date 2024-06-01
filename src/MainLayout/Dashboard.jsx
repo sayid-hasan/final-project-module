@@ -264,7 +264,7 @@ const Dashboard = () => {
                 style={({ isActive }) => {
                   return isActive ? { color: "white" } : {};
                 }}
-                to="/"
+                to="/dashboard/paymenthistory"
               >
                 <ListItemButton
                   sx={{

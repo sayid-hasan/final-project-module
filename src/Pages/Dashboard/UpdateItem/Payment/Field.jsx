@@ -15,7 +15,7 @@ const Field = ({
         {label}
       </label>
       <input
-        className="FormRowInput w-full"
+        className="FormRowInput w-full input"
         id={id}
         type={type}
         placeholder={placeholder}

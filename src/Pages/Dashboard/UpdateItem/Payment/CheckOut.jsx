@@ -6,6 +6,8 @@ import Field from "./Field";
 import "./styles/card_detailed_css.css";
 import "./styles/common_css.css";
 import useAuth from "../../../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 // card options
 const CARD_OPTIONS = {
@@ -43,7 +45,7 @@ const CardField = ({ onChange }) => (
 // submit button component
 const SubmitButton = ({ processing, error, children, disabled }) => (
   <button
-    className={`SubmitButton ${error ? "SubmitButton--error" : ""}`}
+    className={`SubmitButton button ${error ? "SubmitButton--error" : ""}`}
     type="submit"
     disabled={processing || disabled}
   >
@@ -68,7 +70,7 @@ const ErrorMessage = ({ children }) => (
 );
 // reset button with functionality
 const ResetButton = ({ onClick }) => (
-  <button type="button" className="ResetButton" onClick={onClick}>
+  <button type="button" className="ResetButton button" onClick={onClick}>
     <svg width="32px" height="32px" viewBox="0 0 32 32">
       <path
         fill="#FFF"
@@ -80,6 +82,7 @@ const ResetButton = ({ onClick }) => (
 
 // CHECKOUT COMPONENT
 const CheckOut = () => {
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   // laod user
@@ -103,7 +106,7 @@ const CheckOut = () => {
 
   // laod all carts
 
-  const [carts] = useCart();
+  const [carts, refetch] = useCart();
   const totalPrice = parseFloat(
     carts.reduce((accumulator, item) => {
       return accumulator + item.price;
@@ -188,6 +191,30 @@ const CheckOut = () => {
       if (paymentIntent.status === "succeeded") {
         console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
+        // now save info in database
+
+        const payment = {
+          email: user.email,
+          price: totalPrice,
+          date: new Date(),
+          transactionId: paymentIntent.id,
+          cartId: carts.map((item) => item._id),
+          menuItemIds: carts.map((item) => item.menuId),
+          status: "pending",
+        };
+        const res = await axiosSecure.post("/payments", payment);
+        console.log("payment savedd", res.data);
+        if (res.data?.paymentResult?.insertedId) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "thannk you for ordering",
+            showCancelButton: false,
+            timer: 1500,
+          });
+          navigate("/dashboard/paymenthistory");
+        }
       }
     }
   };
@@ -258,7 +285,7 @@ const CheckOut = () => {
       </div>
     ) : (
       <form
-        className=" flex flex-col justify-center  max-w-2xl mx-auto my-8"
+        className=" form flex flex-col justify-center  max-w-2xl mx-auto my-8"
         onSubmit={handleSubmit}
       >
         <fieldset className="FormGroup">
