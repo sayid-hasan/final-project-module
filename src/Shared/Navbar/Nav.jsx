@@ -7,10 +7,13 @@ import logo from "../../assets/Images/user.png";
 import Swal from "sweetalert2";
 import { TiShoppingCart } from "react-icons/ti";
 import useCart from "../../Hooks/useCart";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Nav = () => {
   const { user, loading, logOut } = useContext(AuthContext);
   const [carts] = useCart();
+  const [isAdmin] = useAdmin();
+  console.log("isAdmin", isAdmin);
   const handleLogOut = () => {
     logOut()
       .then(() => {
@@ -48,15 +51,7 @@ const Nav = () => {
           </Link>
         }
       </li>
-      <li className="flex">
-        {" "}
-        <Link
-          to="/dashboard"
-          className={`  flex items-center px-4 rounded-none  pt-4 uppercase text-base  font-Inter`}
-        >
-          Dashboard
-        </Link>
-      </li>
+      <li className="flex"> </li>
       {
         <>
           <li className="flex">
@@ -70,7 +65,26 @@ const Nav = () => {
           </li>
         </>
       }
-      {}
+
+      <li className="flex">
+        {user && isAdmin && (
+          <Link
+            to="/dashboard/adminhome"
+            className={`  flex items-center px-4 rounded-none  pt-4 uppercase text-base  font-Inter`}
+          >
+            Dashboard
+          </Link>
+        )}
+        {user && !isAdmin && (
+          <Link
+            to="/dashboard/userhome"
+            className={`  flex items-center px-4 rounded-none  pt-4 uppercase text-base  font-Inter`}
+          >
+            Dashboard
+          </Link>
+        )}
+      </li>
+
       {
         <>
           <li className="flex">

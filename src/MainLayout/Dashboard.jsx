@@ -216,7 +216,7 @@ const Dashboard = () => {
                 style={({ isActive }) => {
                   return isActive ? { color: "white" } : {};
                 }}
-                to="/"
+                to="/dashboard/userhome"
               >
                 <ListItemButton
                   sx={{

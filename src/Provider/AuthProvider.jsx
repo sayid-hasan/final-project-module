@@ -63,13 +63,14 @@ const AuthProvider = ({ children }) => {
           // console.log("token", res.data.token);
           if (res.data.token) {
             localStorage.setItem("access-token", res.data.token);
+            setLoading(false);
           }
         });
       } else {
         //erase the token from locastorage or cookie or caching or memory
         localStorage.removeItem("access-token");
+        setLoading(false);
       }
-      setLoading(false);
     });
     return () => {
       return unsubscrube();
